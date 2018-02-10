@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using TestDomainEvents.Events;
 
-
 namespace TestDomainEvents
 {
     class Program
@@ -12,16 +11,18 @@ namespace TestDomainEvents
 
         static void Main(string[] args)
         {
+            // Using Microsoft's Dependency Injection
             IServiceCollection services = new ServiceCollection();
             
-            services.AddMediatR(typeof(PingEventHappened));
-            services.AddScoped<IPingService, PingService>();
+            // Using MediatR Nuget package to create sub/pub
+            services.AddMediatR(typeof(ScannerEventCompleted));
+            services.AddScoped<IScannerService, ScannerService>();
 
             _provider = services.BuildServiceProvider();
 
             
-            var pingService = _provider.GetService<IPingService>();
-            pingService.Ping();
+            var scannerService = _provider.GetService<IScannerService>();
+            scannerService.Ping();
 
 
             Console.ReadLine();

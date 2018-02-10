@@ -4,40 +4,43 @@ using TestDomainEvents.Events;
 
 namespace TestDomainEvents
 {
-    public interface IPingService
+    public interface IScannerService
     {
         void Ping();
     }
 
-    public class PingService : IPingService
+    public class ScannerService : IScannerService
     {
         private readonly IMediator _mediator;
 
-        public PingService(IMediator mediator)
+        public ScannerService(IMediator mediator)
         {
             _mediator = mediator;
         }
         
         public void Ping()
         {
-            Console.WriteLine("Something should cause!");
-            _mediator.Publish(new PingEventHappened());
+            Console.WriteLine("Scanning Sectors!");
+            _mediator.Publish(new ScannerEventCompleted("Some result from the scan."));
         }
     }
 
-    public class NotificationService : NotificationHandler<PingEventHappened>
+    public class NotificationService : NotificationHandler<ScannerEventCompleted>
     {
-        protected override void HandleCore(PingEventHappened message)
+        protected override void HandleCore(ScannerEventCompleted message)
         {
-            Console.WriteLine("Notification Sent");
+            Console.WriteLine(
+                string.Format(
+                    "Display updated with scanner results. {0}", 
+                    message.TestString));
         }
     }
 
-    public class SomeOtherService : NotificationHandler<PingEventHappened>
+    public class SomeOtherService : NotificationHandler<ScannerEventCompleted>
     {
-        protected override void HandleCore(PingEventHappened message)
+        protected override void HandleCore(ScannerEventCompleted message)
         {
-            Console.WriteLine("Some Other Service");
+            Console.WriteLine("Some other subscribed service fired.");
         }
     }
 }
