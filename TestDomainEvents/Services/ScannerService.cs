@@ -2,7 +2,7 @@
 using MediatR;
 using TestDomainEvents.Events;
 
-namespace TestDomainEvents
+namespace TestDomainEvents.Services
 {
     public interface IScannerService
     {

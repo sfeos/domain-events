@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using TestDomainEvents.Events;
+using TestDomainEvents.Services;
 
 namespace TestDomainEvents
 {
