@@ -4,11 +4,9 @@ namespace TestDomainEvents.Events
 {
     public class ScannerEventCompleted : INotification
     {
-        public string TestString { get; set; }
+        public string ScannerResultString { get; set; }
 
-        public ScannerEventCompleted(string test)
-        {
-            TestString = test;
-        }
+        public ScannerEventCompleted(string scannerResults) 
+            => ScannerResultString = scannerResults;
     }
 }
